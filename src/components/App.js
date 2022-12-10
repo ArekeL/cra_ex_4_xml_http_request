@@ -10,24 +10,33 @@ class App extends Component {
 		const xhr = new XMLHttpRequest();
 		xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
 
-		xhr.onload = () => {
+		// onload / addEventListener example
+		// xhr.onload = () => {
+		// 	if (xhr.status === 200) {
+		// 		const users = JSON.parse(xhr.response);
+		// 		this.setState({
+		// 			users,
+		// 		});
+		// 	}
+		// };
+
+		xhr.addEventListener("load", () => {
 			if (xhr.status === 200) {
 				const users = JSON.parse(xhr.response);
 				this.setState({
 					users,
 				});
 			}
-		};
+		});
 
 		xhr.send(null);
 	}
 	render() {
 		const users = this.state.users.map((user) => (
 			<div key={user.id}>
-				<h4>
-					{user.name} - nick: {user.username}
-				</h4>
+				<h3>{user.name}</h3>
 				<p>{user.address.city}</p>
+				<p>{user.phone}</p>
 			</div>
 		));
 		return <div className='App'>{users}</div>;
